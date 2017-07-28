@@ -12,13 +12,13 @@ class UsersDao
 
     function __construct()
     {
-        $this->user[] = [
+        $this->user[1] = [
             "id"        => 1,
             "username"  => "tanbt",
             "password"  => "pass123",
             "fullname"  => "Tan Bui"
         ];
-        $this->user[] = [
+        $this->user[2] = [
             "id"        => 2,
             "username"  => "yourown",
             "password"  => "dfagdfag",
@@ -32,5 +32,9 @@ class UsersDao
                 return $user;
         }
         return [];
+    }
+
+    function getUserById($id) {
+        return $this->user[$id];
     }
 }

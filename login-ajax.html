@@ -35,7 +35,7 @@
         $("#frmLogin").submit(function(e){
             e.preventDefault();
             $.post('api/login.php', $("#frmLogin").serialize(), function(data){
-                setCookie("token", data, 10);
+                setCookie("token", data, 10);   //token can also be stored in other places
                 window.location.replace('/');   //another way is to redirect with /?token=TheTokenHere
             }).fail(function(){
                 alert('error');

@@ -4,6 +4,7 @@ A complete example of using jwt to securely transfer data between a front-end/ap
 ## Installation
  * Run ```composer install```
  * Set up a virtualhost for this project
+ * Require Apache webserver
 
 ## Demo behavior
  * Go to login.html page, login.

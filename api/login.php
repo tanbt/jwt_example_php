@@ -2,7 +2,7 @@
 require __DIR__ . "/UsersDao.php";
 require __DIR__ . "/JwtUtil.php";
 
-if ($_POST && !empty($_POST['username']) && !empty($_POST['password'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['username']) && !empty($_POST['password'])) {
     $name = $_POST['username'];
     $pass = $_POST['password'];
 
@@ -10,7 +10,10 @@ if ($_POST && !empty($_POST['username']) && !empty($_POST['password'])) {
     $user = $userDao->getUser($name, $pass);
     if(!empty($user)) {
 
-        $token = JwtUtil::encrypt([$user['id'], $user['username']]);
+        $token = JwtUtil::encrypt([
+            "id" => $user['id'],
+            "username" => $user['username']
+            ]);
         echo $token;
     } else {
         echo "Login failed";

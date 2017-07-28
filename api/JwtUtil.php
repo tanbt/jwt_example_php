@@ -12,6 +12,6 @@ class JwtUtil
     }
 
     public static function decrypt($data, $alg = "HS256") {
-        return JWT::decode($data, self::JWT_KEY, $alg);
+        return JWT::decode($data, self::JWT_KEY, [$alg]);
     }
 }
