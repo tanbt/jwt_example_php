@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form id="login-form" method="post">
+<form id="frmLogin" method="post">
     <label>Username<br/>
         <input type="text" name="username" value="tanbt" required autofocus></label><br/>
     <label>Password<br/>
@@ -21,4 +21,27 @@
 </form>
 
 </body>
+
+<script src="/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        $("#frmLogin").submit(function(e){
+            e.preventDefault();
+            $.post('api/login.php', $("#frmLogin").serialize(), function(data){
+                setCookie("token", data, 10);
+                window.location.replace('/');   //another way is to redirect with /?token=TheTokenHere
+            }).fail(function(){
+                alert('error');
+            });
+        });
+    });
+</script>
+
 </html>
