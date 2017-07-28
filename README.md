@@ -12,3 +12,4 @@ A complete example of using jwt to securely transfer data between a front-end/ap
 ## Reference
  * https://github.com/firebase/php-jwt
  * https://jwt.io/
+ * https://www.sitepoint.com/php-authorization-jwt-json-web-tokens/

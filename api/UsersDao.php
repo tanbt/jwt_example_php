@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: Tan-vaadin-lap
+ * Date: 7/28/2017
+ * Time: 12:07 PM
+ */
+class UsersDao
+{
+    public $user = [];
+
+    function __construct()
+    {
+        $this->user[] = [
+            "username"  => "tanbt",
+            "password"  => "pass123",
+            "fullname"  => "Tan Bui"
+        ];
+        $this->user[] = [
+            "username"  => "yourown",
+            "password"  => "dfagdfag",
+            "fullname"  => "Your Own"
+        ];
+    }
+
+    function getUser($username, $password) {
+        foreach ($this->user as $user) {
+            if ($user["username"] == $username && $user["password"] == $password)
+                return $user;
+        }
+        return [];
+    }
+}
