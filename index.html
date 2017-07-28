@@ -12,7 +12,8 @@
 or <a id="logout" href="#logout">Log out</a> (if you already logged in).
 
 <p>After logging in, you can now access an authenticated resource.<br/>
-    For example, <button id="get-user-info">Click here</button> to see your user Information.
+    For example, <button id="get-user-info">Click here</button> to see your user Information.<br/>
+    or <button id="get-slim-user-info">Click here</button> for Php Slim API.
 </p>
 <br/>
 <p id="user-info"></p>
@@ -50,6 +51,23 @@ or <a id="logout" href="#logout">Log out</a> (if you already logged in).
             const token = getCookie("token");       //or loading from other storage
             $.ajax({
                 url: '/api/user.php',
+                beforeSend: function(request){
+                    request.setRequestHeader('Authorization', 'Bearer ' + token);
+                },
+                type: 'GET',
+                success: function(data) {
+                    $("#user-info").html(data);
+                },
+                error: function() {
+                    alert('error');
+                }
+            });
+        });
+        $("#get-slim-user-info").click(function(e){
+            e.preventDefault();
+            const token = getCookie("token");       //or loading from other storage
+            $.ajax({
+                url: '/api/user-slim.php/hello/Just+a+test',
                 beforeSend: function(request){
                     request.setRequestHeader('Authorization', 'Bearer ' + token);
                 },

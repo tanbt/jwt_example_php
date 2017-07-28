@@ -10,7 +10,9 @@
         }
     ],
     "require": {
-        "firebase/php-jwt": "^5.0"
+        "firebase/php-jwt": "^5.0",
+        "slim/slim": "^3.8",
+        "tuupola/slim-jwt-auth": "^2.3"
     },
     "require-dev": {
         "symfony/var-dumper": "^3.3"
