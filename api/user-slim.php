@@ -1,4 +1,7 @@
 <?php
+/*
+ * Assume that all authenticated users have all the CRUID permissions
+ */
 
 require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once __DIR__ . "/JwtUtil.php";
@@ -76,6 +79,16 @@ $app->post('/users', function($req, $res) use ($userDao) {
     )));
 });
 
+/**
+PUT /api/user-slim.php/users/2 HTTP/1.1
+Host: dev.chooseyourfuture.fi
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0YW5idCJ9.sfvVcJvkxOa2fFQEyLBAF8EOHPtvhD7QEQ8j964KnTs
+Content-Type: application/x-www-form-urlencoded
+Cache-Control: no-cache
+Postman-Token: 28735944-b5ca-91cd-5e9f-4060cc13217a
+
+username=newtan&password=ADF!%24%25AS.ad&fullname=New+Tan
+ */
 $app->put('/users/{id}', function($req, $res, $args) use ($userDao) {
     $user = $userDao->getUserById($args['id']);
     $result = "User is not found.";
@@ -87,6 +100,24 @@ $app->put('/users/{id}', function($req, $res, $args) use ($userDao) {
     return $res->write(json_encode($result));
 });
 
+/**
+DELETE /api/user-slim.php/users/4 HTTP/1.1
+Host: dev.chooseyourfuture.fi
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0YW5idCJ9.sfvVcJvkxOa2fFQEyLBAF8EOHPtvhD7QEQ8j964KnTs
+Content-Type: application/x-www-form-urlencoded
+Cache-Control: no-cache
+Postman-Token: 3a8ddf3a-3447-5eda-0034-5a904c53744a
 
+username=newtan&password=ADF!%24%25AS.ad&fullname=New+Tan
+ */
+$app->delete('/users/{id}', function($req, $res, $args) use ($userDao) {
+    $user = $userDao->getUserById($args['id']);
+    $result = "User is not found.";
+    if (!empty($user)) {
+        $result=$userDao->deleteUserById($args['id']);
+    }
+    $res = $res->withHeader('Content-type', 'application/json');
+    return $res->write(json_encode($result));
+});
 
 $app->run();

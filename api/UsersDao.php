@@ -74,4 +74,11 @@ class UsersDao
         $this->persistent();
         return $this->users[$id];
     }
+
+    function deleteUserById($id) {
+        $deletingUser = $this->users[$id];
+        unset($this->users[$id]);
+        $this->persistent();
+        return ["deleted" => $deletingUser, "Status" => "Deleted"];
+    }
 }
