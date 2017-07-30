@@ -37,4 +37,18 @@ class UsersDao
     function getUserById($id) {
         return $this->user[$id];
     }
+
+    function getAllUser() {
+        return $this->user;
+    }
+
+    function addUser($name, $pass, $fullname) {
+        $id = count($this->user) + 1;
+        $this->user[$id] = [
+            "id"        => $id,
+            "username"  => $name,
+            "password"  => $pass,
+            "fullname"  => $fullname
+        ];
+    }
 }
