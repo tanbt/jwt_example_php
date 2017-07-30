@@ -54,6 +54,7 @@ Cache-Control: no-cache
 Postman-Token: 65f67bba-353c-dd8d-d288-e0a7a493ef63
 */
 $app->get('/users', function($req, $res, $args) use ($userDao) {
+    $res = $res->withHeader('Content-type', 'application/json');
     return $res->write(json_encode($userDao->getAllUsers()));
 });
 
@@ -69,9 +70,21 @@ username=newtan&password=ADF!%24%25AS.ad&fullname=New+Tan
  */
 $app->post('/users', function($req, $res) use ($userDao) {
     $data = $req->getParsedBody();
+    $res = $res->withHeader('Content-type', 'application/json');
     return $res->write(json_encode($userDao->addUser(
         $data['username'], $data['password'], $data['fullname']
     )));
+});
+
+$app->put('/users/{id}', function($req, $res, $args) use ($userDao) {
+    $user = $userDao->getUserById($args['id']);
+    $result = "User is not found.";
+    if (!empty($user)) {
+        $data = $req->getParsedBody();
+        $result = $userDao->updateUserById($args['id'], $data['username'], $data['password'], $data['fullname']);
+    }
+    $res = $res->withHeader('Content-type', 'application/json');
+    return $res->write(json_encode($result));
 });
 
 
