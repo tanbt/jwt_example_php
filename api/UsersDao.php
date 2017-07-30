@@ -8,17 +8,17 @@
  */
 class UsersDao
 {
-    public $user = [];
+    public $users = [];
 
     function __construct()
     {
-        $this->user[1] = [
+        $this->users[1] = [
             "id"        => 1,
             "username"  => "tanbt",
             "password"  => "pass123",
             "fullname"  => "Tan Bui"
         ];
-        $this->user[2] = [
+        $this->users[2] = [
             "id"        => 2,
             "username"  => "yourown",
             "password"  => "dfagdfag",
@@ -27,7 +27,7 @@ class UsersDao
     }
 
     function getUser($username, $password) {
-        foreach ($this->user as $user) {
+        foreach ($this->users as $user) {
             if ($user["username"] == $username && $user["password"] == $password)
                 return $user;
         }
@@ -35,20 +35,22 @@ class UsersDao
     }
 
     function getUserById($id) {
-        return $this->user[$id];
+        return $this->users[$id];
     }
 
-    function getAllUser() {
-        return $this->user;
+    function getAllUsers() {
+        return $this->users;
     }
 
     function addUser($name, $pass, $fullname) {
-        $id = count($this->user) + 1;
-        $this->user[$id] = [
+        $id = count($this->users) + 1;
+        $this->users[$id] = [
             "id"        => $id,
             "username"  => $name,
             "password"  => $pass,
-            "fullname"  => $fullname
+            "fullname"  => $fullname,
+            "created"   => time()
         ];
+        return $this->users[$id];
     }
 }
